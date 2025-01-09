@@ -56,6 +56,11 @@ func main() {
 		return
 	}
 
+	if cmdToRun == "--upgrade" {
+		utils.Upgrade()
+		return
+	}
+
 	// Runs all the commands
 	if cmdToRun == "--all" {
 

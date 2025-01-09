@@ -13,7 +13,6 @@ func PrintAvailableCommands() {
 
 	fmt.Println(strings.Repeat("=", 40))
 
-	// Iterate through the commands and print them in a formatted way
 	for _, command := range LoadCommands() {
 		cmdNameColor := color.New(color.FgCyan, color.Bold)
 		cmdNameColor.Printf("Command: %s\n", command.Name)

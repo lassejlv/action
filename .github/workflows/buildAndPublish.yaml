@@ -24,17 +24,11 @@ jobs:
         run: |
           go run main.go --all
 
-      - name: Generate release tag
-        id: tag
-        run: |
-          echo "release_tag=v$(date +'%Y.%m.%d_%H-%M')" >> $GITHUB_OUTPUT
-
       - name: Upload Release Asset (Linux x64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # use from the created release tag that triggered the workflow
           upload_url: ${{github.event.release.upload_url }}
           asset_path: ./build/actionfile-linux-x64
           asset_name: actionfile-linux-x64
