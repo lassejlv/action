@@ -19,6 +19,10 @@ func PrintAvailableCommands() {
 
 		fmt.Printf("String: %s\n", command.String)
 
+		fmt.Println(strings.Repeat("=", 40))
+
+		fmt.Println("(string means the command to be ran by the command runner)")
+
 		fmt.Println(strings.Repeat("-", 40))
 	}
 }
