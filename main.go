@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/lassejlv/actionfile-go/utils"
+	"github.com/lassejlv/action/utils"
 
 	"github.com/fatih/color"
 )
@@ -59,6 +59,11 @@ func main() {
 
 	if cmdToRun == "--upgrade" {
 		utils.Upgrade()
+		return
+	}
+
+	if cmdToRun == "--init" {
+		utils.Init()
 		return
 	}
 

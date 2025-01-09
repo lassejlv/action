@@ -1,4 +1,4 @@
-module github.com/lassejlv/actionfile-go
+module github.com/lassejlv/action
 
 go 1.23.4
 
