@@ -8,12 +8,20 @@ import (
 )
 
 func PrintAvailableCommands() {
+
+	commands := LoadCommands()
+
+	if len(commands) == 0 {
+		fmt.Println("No commands found")
+		return
+	}
+
 	headerColor := color.New(color.FgBlue, color.Bold)
 	headerColor.Println("Available Commands:")
 
 	fmt.Println(strings.Repeat("=", 40))
 
-	for _, command := range LoadCommands() {
+	for _, command := range commands {
 		cmdNameColor := color.New(color.FgCyan, color.Bold)
 		cmdNameColor.Printf("Command: %s\n", command.Name)
 
