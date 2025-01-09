@@ -1,0 +1,86 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Create release with uploaded binary build to ./build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Build using go
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.23
+      - name: Build
+        run: |
+          go run main.go --all
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/actionfile-linux-x64
+          asset_name: actionfile-linux-x64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset
+        id: upload-linux-arm64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/actionfile-linux-arm64
+          asset_name: actionfile-linux-arm64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset
+        id: upload-mac-x64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/actionfile-mac-x64
+          asset_name: actionfile-mac-x64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset
+        id: upload-mac-arm64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/actionfile-mac-arm64
+          asset_name: actionfile-mac-arm64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset
+        id: upload-win-x64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/actionfile-win-x64.exe
+          asset_name: actionfile-win-x64.exe
+          asset_content_type: application/octet-stream
