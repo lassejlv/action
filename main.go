@@ -1,9 +1,10 @@
 package main
 
 import (
-	"actionfile/utils"
 	"fmt"
 	"os"
+
+	"github.com/lassejlv/actionfile-go/utils"
 
 	"github.com/fatih/color"
 )
