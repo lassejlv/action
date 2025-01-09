@@ -1,9 +1,8 @@
 name: Build and Publish
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -30,25 +29,13 @@ jobs:
         run: |
           echo "release_tag=v$(date +'%Y.%m.%d_%H-%M')" >> $GITHUB_OUTPUT
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
-          release_name: Release ${{ steps.tag.outputs.release_tag }}
-          body: |
-            ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-
       - name: Upload Release Asset (Linux x64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # use from the created release tag that triggered the workflow
+          upload_url: ${{github.event.release.upload_url }}
           asset_path: ./build/actionfile-linux-x64
           asset_name: actionfile-linux-x64
           asset_content_type: application/octet-stream
@@ -58,7 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./build/actionfile-linux-arm64
           asset_name: actionfile-linux-arm64
           asset_content_type: application/octet-stream
@@ -68,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{github.event.release.upload_url }}
           asset_path: ./build/actionfile-mac-x64
           asset_name: actionfile-mac-x64
           asset_content_type: application/octet-stream
@@ -78,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./build/actionfile-mac-arm64
           asset_name: actionfile-mac-arm64
           asset_content_type: application/octet-stream
@@ -88,7 +75,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./build/actionfile-win-x64.exe
           asset_name: actionfile-win-x64.exe
           asset_content_type: application/octet-stream
