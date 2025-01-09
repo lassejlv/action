@@ -18,7 +18,7 @@ func PrintAvailableCommands() {
 		cmdNameColor := color.New(color.FgCyan, color.Bold)
 		cmdNameColor.Printf("Command: %s\n", command.Name)
 
-		fmt.Printf("Description: %s\n", command.String)
+		fmt.Printf("String: %s\n", command.String)
 
 		fmt.Println(strings.Repeat("-", 40))
 	}
