@@ -5,19 +5,27 @@ on:
     branches:
       - main
 
+# Add permissions block
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
-    name: Build and Create release with uploaded binary build to ./build
+    name: Build and Create release with uploaded binary build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      # Build using go
+
       - uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: '1.23'
+
       - name: Build
         run: |
           go run main.go --all
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -30,8 +38,8 @@ jobs:
             ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
+
+      - name: Upload Release Asset (Linux x64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,8 +49,7 @@ jobs:
           asset_name: actionfile-linux-x64
           asset_content_type: application/octet-stream
 
-      - name: Upload Release Asset
-        id: upload-linux-arm64
+      - name: Upload Release Asset (Linux ARM64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,8 +59,7 @@ jobs:
           asset_name: actionfile-linux-arm64
           asset_content_type: application/octet-stream
 
-      - name: Upload Release Asset
-        id: upload-mac-x64
+      - name: Upload Release Asset (Mac x64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,8 +69,7 @@ jobs:
           asset_name: actionfile-mac-x64
           asset_content_type: application/octet-stream
 
-      - name: Upload Release Asset
-        id: upload-mac-arm64
+      - name: Upload Release Asset (Mac ARM64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,8 +79,7 @@ jobs:
           asset_name: actionfile-mac-arm64
           asset_content_type: application/octet-stream
 
-      - name: Upload Release Asset
-        id: upload-win-x64
+      - name: Upload Release Asset (Windows x64)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
