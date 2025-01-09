@@ -58,7 +58,8 @@ func Upgrade() {
 	if isOutdated.Check(v) {
 
 		fmt.Println("Downloading latest version")
-		fmt.Println("For now go to https://github.com/lassejlv/actionfile-go/releases. This command is unfinished")
+		RunCmd("go install github.com/lassejlv/action@latest")
+		fmt.Println("Successfully updated to " + release.TagName)
 	} else {
 		fmt.Println("Your version is up to date")
 	}
