@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	errorColor   = color.New(color.FgRed, color.Bold)
+	//	errorColor   = color.New(color.FgRed, color.Bold)
 	headerColor  = color.New(color.FgCyan, color.Bold)
 	commandColor = color.New(color.FgYellow)
 	exampleColor = color.New(color.FgBlack)
@@ -20,6 +20,10 @@ const usageTemplate = `
 Usage:
   %s <command>    Execute a specific command from .actions
   %s --all       Run all available commands from .actions
+	%s --list      List all available commands from .actions
+	%s --version   Print the current version
+	%s --upgrade   Upgrade to the latest version
+	%s --init      Create a .actions file
 
 Examples:
   %s build       Run the build command - Loads the build command from .actions
@@ -31,14 +35,16 @@ For more information, visit: https://github.com/lassejlv/actionfile-go
 func main() {
 
 	if len(os.Args) < 2 {
-		errorColor.Fprintln(os.Stderr, "Error: No command specified")
-
 		// Format usage with colors
 		usage := fmt.Sprintf(usageTemplate,
 			commandColor.Sprint("action"),
 			commandColor.Sprint("action"),
 			exampleColor.Sprint("action"),
 			exampleColor.Sprint("action"),
+			exampleColor.Sprint("action"),
+			exampleColor.Sprint("action"),
+			commandColor.Sprint("action"),
+			commandColor.Sprint("action"),
 		)
 
 		headerColor.Println("\nActionfile Task Runner")

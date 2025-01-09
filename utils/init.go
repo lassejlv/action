@@ -8,15 +8,16 @@ import (
 
 func Init() {
 	reader := bufio.NewReader(os.Stdin)
+
 	fmt.Println("Welcome to Actionfile!")
 	fmt.Println("Enter the name of your first command: ")
+
 	commandName, _ := reader.ReadString('\n')
 
 	fmt.Println("Enter the command string: ")
 	commandString, _ := reader.ReadString('\n')
 
 	WriteCommand(commandName, commandString)
-
 	fmt.Println("Command added successfully! Run action --list to see your commands")
 }
 
