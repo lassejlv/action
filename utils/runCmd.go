@@ -1,11 +1,14 @@
 package utils
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"runtime"
+
+	"github.com/fatih/color"
 )
+
+var errorColor = color.New(color.FgRed, color.Bold)
 
 func RunCmd(cmdString string) {
 	var cmd *exec.Cmd
@@ -21,7 +24,7 @@ func RunCmd(cmdString string) {
 
 	err := cmd.Run()
 	if err != nil {
-		fmt.Printf("Error executing command: %v\n", err)
+		errorColor.Printf("Error executing command: %v\n", err)
 		os.Exit(1)
 	}
 }

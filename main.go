@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	//	errorColor   = color.New(color.FgRed, color.Bold)
+	errorColor   = color.New(color.FgRed, color.Bold)
 	headerColor  = color.New(color.FgCyan, color.Bold)
 	commandColor = color.New(color.FgYellow)
 	exampleColor = color.New(color.FgBlack)
