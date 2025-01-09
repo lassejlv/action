@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -13,6 +14,20 @@ type CommandsArray struct {
 }
 
 func LoadCommands() []CommandsArray {
+
+	fileExists, _ := os.Stat(ConfigFileName)
+
+	if fileExists == nil {
+		cwd, err := os.Getwd()
+
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Could not detect .actions in ", cwd)
+		os.Exit(1)
+	}
+
 	data, err := os.ReadFile(ConfigFileName)
 
 	if err != nil {

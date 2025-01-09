@@ -4,8 +4,6 @@ import (
 	"actionfile/utils"
 	"fmt"
 	"os"
-	"os/exec"
-	"runtime"
 )
 
 func main() {
@@ -22,52 +20,25 @@ func main() {
 		return
 	}
 
+	if cmdToRun == "--version" {
+		fmt.Println(utils.GetLatestReleaseVersion())
+		return
+	}
+
 	// Runs all the commands
 	if cmdToRun == "--all" {
-		fmt.Println("Running all commands...")
 
 		for _, command := range utils.LoadCommands() {
-			var cmd *exec.Cmd
-
-			if runtime.GOOS == "windows" {
-				cmd = exec.Command("cmd", "/C", command.String)
-			} else {
-				cmd = exec.Command("sh", "-c", command.String)
-			}
-
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-
-			err := cmd.Run()
-			if err != nil {
-				fmt.Printf("Error executing command: %v\n", err)
-				os.Exit(1)
-			}
-
+			utils.RunCmd(command.String)
 		}
+
 		return
 	}
 
 	for _, command := range utils.LoadCommands() {
 		if command.Name == cmdToRun {
-			var cmd *exec.Cmd
-
-			if runtime.GOOS == "windows" {
-				cmd = exec.Command("cmd", "/C", command.String)
-			} else {
-				cmd = exec.Command("sh", "-c", command.String)
-			}
-
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-
-			err := cmd.Run()
-			if err != nil {
-				fmt.Printf("Error executing command: %v\n", err)
-				os.Exit(1)
-			}
+			utils.RunCmd(command.String)
 			return
-
 		}
 	}
 
