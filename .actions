@@ -1,5 +1,3 @@
-hello = echo 'hello_world'
-
 build_win-x64 = GOOS=windows GOARCH=amd64 go build -o build/actionfile-win-x64.exe
 build_linux-x64 = GOOS=linux GOARCH=amd64 go build -o build/actionfile-linux-x64
 build_linux-arm64 = GOOS=linux GOARCH=arm64 go build -o build/actionfile-linux-arm64

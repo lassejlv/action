@@ -8,6 +8,7 @@ import (
 
 var ConfigFileName string = ".actions"
 var VersionFileName string = "version.txt"
+var CurrentVersion string = "0.1.6"
 
 type CommandsArray struct {
 	Name   string
@@ -58,25 +59,5 @@ func LoadCommands() []CommandsArray {
 }
 
 func LoadVersion() string {
-
-	fileExists, _ := os.Stat(VersionFileName)
-
-	if fileExists == nil {
-		cwd, err := os.Getwd()
-
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Println("Could not detect version.txt in ", cwd)
-		os.Exit(1)
-	}
-
-	data, err := os.ReadFile(VersionFileName)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return string(data)
+	return CurrentVersion
 }
