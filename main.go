@@ -39,6 +39,11 @@ func main() {
 		return
 	}
 
+	if cmdToRun == "--help" {
+		utils.Usage()
+		return
+	}
+
 	// Runs all the commands
 	if cmdToRun == "--all" {
 
