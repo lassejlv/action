@@ -7,7 +7,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.14"
+var CurrentVersion string = "0.1.15"
 
 type CommandsArray struct {
 	Name   string

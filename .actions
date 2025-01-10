@@ -3,3 +3,4 @@ build_linux-x64 = GOOS=linux GOARCH=amd64 go build -o build/actionfile-linux-x64
 build_linux-arm64 = GOOS=linux GOARCH=arm64 go build -o build/actionfile-linux-arm64
 build_mac-x64 = GOOS=darwin GOARCH=amd64 go build -o build/actionfile-mac-x64
 build_mac-arm64 = GOOS=darwin GOARCH=arm64 go build -o build/actionfile-mac-arm64
+hello world = echo "Hello World"

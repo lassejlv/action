@@ -14,7 +14,7 @@ func Upgrade() {
 	currentVersion := LoadVersion()
 
 	if currentVersion == " " {
-		fmt.Println("Could not detect version.txt")
+		fmt.Println("Could not detect version")
 		os.Exit(1)
 	}
 

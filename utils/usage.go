@@ -27,7 +27,7 @@ Examples:
   %s build       Run the build command - Loads the build command from .actions
   %s test        Run the test command - Loads the test command from .actions
 
-For more information, visit: https://github.com/lassejlv/actionfile-go
+For more information, visit: https://github.com/lassejlv/actionfile
 `
 
 func Usage() {
@@ -43,6 +43,6 @@ func Usage() {
 		commandColor.Sprint(cliName),
 	)
 
-	headerColor.Println("\nActionfile Task Runner")
+	headerColor.Println("\nActionfile Command Runner")
 	fmt.Println(usage)
 }

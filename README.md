@@ -1,11 +1,25 @@
 # Actionfile
 
-This is a fast and idiot proof task runner. It works just like npm scripts but is much faster. It's written in go and is my first real like project so dont judge the code quality.
+This is a fast and idiot proof command runner. Easy and freindly config language.
 
-## How to get started?
+Example. Create a `.actions` file
 
-Download an binary from the latest release (works cross platform ofc)
+```txt
+hello = echo hello_world
+```
 
-Then run `action --init` in the dir you wanna setup commands. And boom it creates a `.actions` file for you with examples.
+For now you can now have space between the command name. This will be fixed later on.
 
-- A better guide will come very soon!
+## Install
+
+Install the easy way (with the latest version of go installed on your system or above 1.23.4)
+
+```
+go install github.com/lassejlv/action@latest
+```
+
+Then run `action --help` and to upgrade in the feature. Use `action --upgrade` 😀
+
+#### The other way
+
+Download a the binary release from the latest release at https://github.com/lassejlv/action/releases/latest
