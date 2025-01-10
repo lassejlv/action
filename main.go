@@ -25,7 +25,10 @@ func main() {
 	}
 
 	if cmdToRun == "--version" {
-		fmt.Println(utils.LoadVersion())
+		utils.Logger(utils.LoggerOptions{
+			Level:   "info",
+			Message: fmt.Sprintf("Current version: %s", utils.CurrentVersion),
+		})
 		return
 	}
 
