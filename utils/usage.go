@@ -39,7 +39,7 @@ func Usage() {
 		exampleColor.Sprint(cliName),
 		exampleColor.Sprint(cliName),
 		exampleColor.Sprint(cliName),
-		commandColor.Sprint(cliName),
+		exampleColor.Sprint(cliName),
 		commandColor.Sprint(cliName),
 	)
 

@@ -24,7 +24,7 @@ func RunCmd(cmdString string) {
 
 	err := cmd.Run()
 	if err != nil {
-		errorColor.Printf("Error executing command: %v\n", err)
+		Logger(LoggerOptions{Level: "error", Message: "Could not run the command, sadly."})
 		os.Exit(1)
 	}
 }

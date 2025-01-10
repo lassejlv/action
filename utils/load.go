@@ -7,7 +7,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.15"
+var CurrentVersion string = "0.1.16"
 
 type CommandsArray struct {
 	Name   string
@@ -25,7 +25,7 @@ func LoadCommands() []CommandsArray {
 			panic(err)
 		}
 
-		fmt.Println("Could not detect .actions in ", cwd)
+		Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("No %s file found in %s", ConfigFileName, cwd)})
 		os.Exit(1)
 	}
 

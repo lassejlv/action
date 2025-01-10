@@ -2,7 +2,6 @@ package utils
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -14,13 +13,13 @@ func Upgrade() {
 	currentVersion := LoadVersion()
 
 	if currentVersion == " " {
-		fmt.Println("Could not detect version")
+		Logger(LoggerOptions{Level: "error", Message: "Could not detect version"})
 		os.Exit(1)
 	}
 
 	// Get the latest github release and match it to the current version
 
-	fmt.Println("Upgrading to latest version")
+	Logger(LoggerOptions{Level: "info", Message: "Checking for updates..."})
 
 	url := "https://api.github.com/repos/lassejlv/actionfile-go/releases/latest"
 	resp, err := http.Get(url)
@@ -40,8 +39,9 @@ func Upgrade() {
 		panic(err)
 	}
 
-	fmt.Println("Latest version: " + release.TagName)
-	fmt.Println("Current version: " + currentVersion)
+	Logger(LoggerOptions{Level: "info", Message: "Checking for updates..."})
+	Logger(LoggerOptions{Level: "info", Message: "Latest version: " + release.TagName})
+	Logger(LoggerOptions{Level: "info", Message: "Current version: " + currentVersion})
 
 	v, err := semver.NewVersion(release.TagName)
 
@@ -56,11 +56,11 @@ func Upgrade() {
 	}
 
 	if isOutdated.Check(v) {
-		fmt.Println("Downloading latest version")
+		Logger(LoggerOptions{Level: "info", Message: "Upgrading to " + release.TagName})
 		RunCmd("go install github.com/lassejlv/action@" + release.TagName)
-		fmt.Println("Successfully updated to " + release.TagName)
+		Logger(LoggerOptions{Level: "success", Message: "Upgrade complete"})
 	} else {
-		fmt.Println("Your version is up to date")
+		Logger(LoggerOptions{Level: "info", Message: "You are already on the latest version"})
 	}
 
 }

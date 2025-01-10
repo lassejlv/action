@@ -12,7 +12,7 @@ func PrintAvailableCommands() {
 	commands := LoadCommands()
 
 	if len(commands) == 0 {
-		fmt.Println("No commands found")
+		Logger(LoggerOptions{Level: "warn", Message: "No commands was found in config"})
 		return
 	}
 
@@ -30,5 +30,5 @@ func PrintAvailableCommands() {
 		fmt.Println(strings.Repeat("-", 40))
 	}
 
-	fmt.Println("(string means the command to be ran by the command runner)")
+	Logger(LoggerOptions{Level: "info", Message: "(string means the command to be ran by the command runner)"})
 }
