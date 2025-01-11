@@ -7,9 +7,9 @@ import (
 	"github.com/fatih/color"
 )
 
-func PrintAvailableCommands() {
+func PrintAvailableCommands(cmdToRun string) {
 
-	commands := LoadCommands()
+	commands := LoadCommands(cmdToRun)
 
 	if len(commands) == 0 {
 		Logger(LoggerOptions{Level: "warn", Message: "No commands was found in config"})

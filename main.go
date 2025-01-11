@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	commands := utils.LoadCommands()
+	commands := utils.LoadCommands(os.Args[1])
 
 	// Run the first command if no command is specified
 	if len(os.Args) < 2 {
@@ -20,7 +20,7 @@ func main() {
 	cmdToRun := os.Args[1]
 
 	if cmdToRun == "--list" {
-		utils.PrintAvailableCommands()
+		utils.PrintAvailableCommands(cmdToRun)
 		return
 	}
 

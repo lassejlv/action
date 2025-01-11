@@ -19,6 +19,7 @@ func RunCmd(cmdString string) {
 	cmd.Stderr = os.Stderr
 
 	err := cmd.Run()
+
 	if err != nil {
 		Logger(LoggerOptions{Level: "error", Message: "Could not run the command, sadly."})
 		os.Exit(1)

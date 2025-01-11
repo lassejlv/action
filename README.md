@@ -22,4 +22,4 @@ Then run `action --help` and to upgrade in the feature. Use `action --upgrade` ð
 
 #### The other way
 
-Download a the binary release from the latest release at https://github.com/lassejlv/action/releases/latest
+Download one of the binary release from the latest release at https://github.com/lassejlv/action/releases/latest

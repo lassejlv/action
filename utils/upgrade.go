@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -59,6 +60,7 @@ func Upgrade() {
 		Logger(LoggerOptions{Level: "info", Message: "Upgrading to " + release.TagName})
 		RunCmd("go install github.com/lassejlv/action@" + release.TagName)
 		Logger(LoggerOptions{Level: "success", Message: "Upgrade complete"})
+		Logger(LoggerOptions{Level: "info", Message: fmt.Sprintf("Read more about this release at https://github.com/lassejlv/action/releases/tag/%s", release.TagName)})
 	} else {
 		Logger(LoggerOptions{Level: "info", Message: "You are already on the latest version"})
 	}

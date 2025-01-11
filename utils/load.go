@@ -7,18 +7,18 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.18"
+var CurrentVersion string = "0.1.19"
 
 type CommandsArray struct {
 	Name   string
 	String string
 }
 
-func LoadCommands() []CommandsArray {
+func LoadCommands(cmdToRun string) []CommandsArray {
 
 	fileExists, _ := os.Stat(ConfigFileName)
 
-	if fileExists == nil {
+	if fileExists == nil && cmdToRun != "--init" {
 		cwd, err := os.Getwd()
 
 		if err != nil {
@@ -40,6 +40,11 @@ func LoadCommands() []CommandsArray {
 	for _, line := range strings.Split(string(data), "\n") {
 		line = strings.TrimSpace(line)
 		if len(line) == 0 {
+			continue
+		}
+
+		// This will ignore comments
+		if strings.HasPrefix(line, "#") {
 			continue
 		}
 
