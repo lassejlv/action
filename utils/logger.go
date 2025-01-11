@@ -12,10 +12,10 @@ type LoggerOptions struct {
 }
 
 var (
-	error   = color.New(color.FgRed, color.Bold)
-	success = color.New(color.FgGreen, color.Bold)
-	info    = color.New(color.FgBlue, color.Bold)
-	warn    = color.New(color.FgYellow, color.Bold)
+	error   = color.New(color.FgRed)
+	success = color.New(color.FgGreen)
+	info    = color.New(color.FgBlue)
+	warn    = color.New(color.FgYellow)
 )
 
 func Logger(options LoggerOptions) {
@@ -23,7 +23,7 @@ func Logger(options LoggerOptions) {
 	case "error":
 		error.Println("[ERROR]", options.Message)
 	case "success":
-		success.Println(options.Message)
+		success.Println("[SUCCESS]", options.Message)
 	case "info":
 		info.Println("[INFO]", options.Message)
 	case "warn":

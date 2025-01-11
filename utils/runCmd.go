@@ -4,11 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-
-	"github.com/fatih/color"
 )
-
-var errorColor = color.New(color.FgRed, color.Bold)
 
 func RunCmd(cmdString string) {
 	var cmd *exec.Cmd

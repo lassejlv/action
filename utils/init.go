@@ -1,5 +1,11 @@
 package utils
 
+import (
+	"fmt"
+)
+
 func Init() {
-	Logger(LoggerOptions{Level: "info", Message: "Command is not implemented yet"})
+
+	commandName := Prompt("What is the name of the command? ")
+	fmt.Println(commandName)
 }

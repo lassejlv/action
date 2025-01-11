@@ -67,6 +67,6 @@ func main() {
 	// fmt.Printf("Command '%s' not found in config\n", cmdToRun)
 	utils.Logger(utils.LoggerOptions{
 		Level:   "error",
-		Message: "Command was not found",
+		Message: fmt.Sprintf("Command '%s' not found in config", cmdToRun),
 	})
 }
