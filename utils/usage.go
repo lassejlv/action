@@ -6,13 +6,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var (
-	//	errorColor   = color.New(color.FgRed, color.Bold)
-	headerColor  = color.New(color.FgCyan, color.Bold)
-	commandColor = color.New(color.FgYellow)
-	exampleColor = color.New(color.FgBlack)
-	cliName      = "action"
-)
+var headerColor = color.New(color.FgCyan, color.Bold)
 
 const usageTemplate = `
 Usage:
@@ -31,8 +25,6 @@ For more information, visit: https://github.com/lassejlv/actionfile
 `
 
 func Usage() {
-	// Format usage with colors
-
 	headerColor.Println("\nActionfile Command Runner")
-	fmt.Printf(usageTemplate)
+	fmt.Print(usageTemplate)
 }

@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	commands := utils.LoadCommands(os.Args[1])
+	commands := utils.LoadCommands()
 
 	// Run the first command if no command is specified
 	if len(os.Args) < 2 {

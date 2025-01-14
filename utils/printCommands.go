@@ -9,7 +9,7 @@ import (
 
 func PrintAvailableCommands(cmdToRun string) {
 
-	commands := LoadCommands(cmdToRun)
+	commands := LoadCommands()
 
 	if len(commands) == 0 {
 		Logger(LoggerOptions{Level: "warn", Message: "No commands was found in config"})
