@@ -17,6 +17,13 @@ func Upgrade() {
 		os.Exit(1)
 	}
 
+	isInstalledWithGoGet := os.Getenv("GOBIN") != ""
+
+	if !isInstalledWithGoGet {
+		log.Error().Msg("This command is only available for go get installations for now.")
+		os.Exit(1)
+	}
+
 	// Get the latest github release and match it to the current version
 
 	log.Info().Msg("Checking for updates...")
