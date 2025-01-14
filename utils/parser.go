@@ -8,7 +8,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.26"
+var CurrentVersion string = "0.1.27"
 
 type CommandsArray struct {
 	Name   string
@@ -74,8 +74,4 @@ func ParseCommands() []CommandsArray {
 	}
 
 	return commands
-}
-
-func LoadVersion() string {
-	return CurrentVersion
 }

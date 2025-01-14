@@ -15,7 +15,6 @@ Usage:
   action --list      List all available commands from .actions
   action --version   Print the current version
   action --upgrade   Upgrade to the latest version
-  action --init      Create a .actions file
 
 Examples:
   action build       Run the build command - Loads the build command from .actions

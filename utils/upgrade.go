@@ -12,9 +12,7 @@ import (
 
 func Upgrade() {
 
-	currentVersion := LoadVersion()
-
-	if currentVersion == " " {
+	if CurrentVersion == " " {
 		log.Warn().Msg("Could not detect version")
 		os.Exit(1)
 	}
@@ -42,7 +40,7 @@ func Upgrade() {
 	}
 
 	log.Info().Msgf("Latest version: %s", release.TagName)
-	log.Info().Msgf("Current version: %s", currentVersion)
+	log.Info().Msgf("Current version: %s", CurrentVersion)
 
 	v, err := semver.NewVersion(release.TagName)
 
@@ -50,7 +48,7 @@ func Upgrade() {
 		panic(err)
 	}
 
-	isOutdated, err := semver.NewConstraint("> " + currentVersion)
+	isOutdated, err := semver.NewConstraint("> " + CurrentVersion)
 
 	if err != nil {
 		panic(err)
