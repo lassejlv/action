@@ -4,6 +4,8 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+
+	"github.com/rs/zerolog/log"
 )
 
 func RunCmd(cmdString string) {
@@ -21,7 +23,7 @@ func RunCmd(cmdString string) {
 	err := cmd.Run()
 
 	if err != nil {
-		Logger(LoggerOptions{Level: "error", Message: "Could not run the command, sadly."})
+		log.Error().Err(err).Msg("Could not run the command, sadly.")
 		os.Exit(1)
 	}
 }

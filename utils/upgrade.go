@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/Masterminds/semver"
+	"github.com/rs/zerolog/log"
 )
 
 func Upgrade() {
@@ -14,13 +15,13 @@ func Upgrade() {
 	currentVersion := LoadVersion()
 
 	if currentVersion == " " {
-		Logger(LoggerOptions{Level: "error", Message: "Could not detect version"})
+		log.Warn().Msg("Could not detect version")
 		os.Exit(1)
 	}
 
 	// Get the latest github release and match it to the current version
 
-	Logger(LoggerOptions{Level: "info", Message: "Checking for updates..."})
+	log.Info().Msg("Checking for updates...")
 
 	url := "https://api.github.com/repos/lassejlv/actionfile-go/releases/latest"
 	resp, err := http.Get(url)
@@ -40,9 +41,8 @@ func Upgrade() {
 		panic(err)
 	}
 
-	Logger(LoggerOptions{Level: "info", Message: "Checking for updates..."})
-	Logger(LoggerOptions{Level: "info", Message: "Latest version: " + release.TagName})
-	Logger(LoggerOptions{Level: "info", Message: "Current version: " + currentVersion})
+	log.Info().Msgf("Latest version: %s", release.TagName)
+	log.Info().Msgf("Current version: %s", currentVersion)
 
 	v, err := semver.NewVersion(release.TagName)
 
@@ -57,12 +57,12 @@ func Upgrade() {
 	}
 
 	if isOutdated.Check(v) {
-		Logger(LoggerOptions{Level: "info", Message: "Upgrading to " + release.TagName})
+		log.Info().Msg("Upgrading to " + release.TagName)
 		RunCmd("go install github.com/lassejlv/action@" + release.TagName)
-		Logger(LoggerOptions{Level: "success", Message: "Upgrade complete"})
-		Logger(LoggerOptions{Level: "info", Message: fmt.Sprintf("Read more about this release at https://github.com/lassejlv/action/releases/tag/%s", release.TagName)})
+		log.Info().Msg("Upgrade complete")
+		log.Info().Msg(fmt.Sprintf("Read more about this release at https://github.com/lassejlv/action/releases/tag/%s", release.TagName))
 	} else {
-		Logger(LoggerOptions{Level: "info", Message: "You are already on the latest version"})
+		log.Info().Msg("You are already on the latest version")
 	}
 
 }

@@ -1,15 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/lassejlv/action/utils"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
+	// Enable pretty logging
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout})
 
-	commands := utils.LoadCommands()
+	commands := utils.ParseCommands()
 
 	// Run the first command if no command is specified
 	if len(os.Args) < 2 {
@@ -25,10 +28,7 @@ func main() {
 	}
 
 	if cmdToRun == "--version" {
-		utils.Logger(utils.LoggerOptions{
-			Level:   "info",
-			Message: fmt.Sprintf("Current version: %s", utils.CurrentVersion),
-		})
+		log.Info().Msgf("v%s", utils.CurrentVersion)
 		return
 	}
 
@@ -38,7 +38,7 @@ func main() {
 	}
 
 	if cmdToRun == "--init" {
-		utils.Init()
+		log.Info().Msg("Not implemented yet")
 		return
 	}
 
@@ -64,9 +64,5 @@ func main() {
 		}
 	}
 
-	// fmt.Printf("Command '%s' not found in config\n", cmdToRun)
-	utils.Logger(utils.LoggerOptions{
-		Level:   "error",
-		Message: fmt.Sprintf("Command '%s' not found in config", cmdToRun),
-	})
+	log.Error().Msgf("Command '%s' not found in config", cmdToRun)
 }

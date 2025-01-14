@@ -5,14 +5,15 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/rs/zerolog/log"
 )
 
 func PrintAvailableCommands(cmdToRun string) {
 
-	commands := LoadCommands()
+	commands := ParseCommands()
 
 	if len(commands) == 0 {
-		Logger(LoggerOptions{Level: "warn", Message: "No commands was found in config"})
+		log.Warn().Msg("No commands was found in config")
 		return
 	}
 
@@ -30,5 +31,5 @@ func PrintAvailableCommands(cmdToRun string) {
 		fmt.Println(strings.Repeat("-", 40))
 	}
 
-	Logger(LoggerOptions{Level: "info", Message: "(string means the command to be ran by the command runner)"})
+	log.Info().Msg("string means the command to be ran by the command runner)")
 }

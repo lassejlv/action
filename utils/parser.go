@@ -1,20 +1,21 @@
 package utils
 
 import (
-	"fmt"
 	"os"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.24"
+var CurrentVersion string = "0.1.25"
 
 type CommandsArray struct {
 	Name   string
 	String string
 }
 
-func LoadCommands() []CommandsArray {
+func ParseCommands() []CommandsArray {
 	// First check if file exists
 	_, err := os.Stat(ConfigFileName)
 	if err != nil {
@@ -23,7 +24,7 @@ func LoadCommands() []CommandsArray {
 			if err != nil {
 				panic(err)
 			}
-			Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("No %s file found in %s", ConfigFileName, cwd)})
+			log.Warn().Msgf("No %s file found in %s", ConfigFileName, cwd)
 			os.Exit(1)
 		}
 		panic(err)
@@ -48,7 +49,7 @@ func LoadCommands() []CommandsArray {
 		parts := strings.SplitN(line, "=", 2)
 
 		if len(parts) != 2 {
-			Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("Invalid line format: %s", line)})
+			log.Warn().Msgf("Invalid line format: %s", line)
 			continue
 		}
 
@@ -61,7 +62,7 @@ func LoadCommands() []CommandsArray {
 		}
 
 		if cmdName == "" || cmdString == "" {
-			Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("Empty command name or string: %s", line)})
+			log.Warn().Msgf("Empty command name or string: %s", line)
 			continue
 		}
 
@@ -69,7 +70,7 @@ func LoadCommands() []CommandsArray {
 	}
 
 	if len(commands) == 0 {
-		Logger(LoggerOptions{Level: "warn", Message: "No valid commands found in config file"})
+		log.Warn().Msg("No valid commands found in config file")
 	}
 
 	return commands
