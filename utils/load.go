@@ -7,7 +7,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.22"
+var CurrentVersion string = "0.1.24"
 
 type CommandsArray struct {
 	Name   string
@@ -40,19 +40,25 @@ func LoadCommands() []CommandsArray {
 	// Parse each line
 	for _, line := range strings.Split(string(data), "\n") {
 		line = strings.TrimSpace(line)
-		if len(line) == 0 || strings.Contains(line, "#") {
+		if len(line) == 0 || strings.HasPrefix(line, "#") {
 			continue
 		}
 
+		// Split by = first
 		parts := strings.SplitN(line, "=", 2)
 
-		if len(parts) != 2 && !strings.Contains(line, "#") {
+		if len(parts) != 2 {
 			Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("Invalid line format: %s", line)})
 			continue
 		}
 
 		cmdName := strings.TrimSpace(parts[0])
 		cmdString := strings.TrimSpace(parts[1])
+
+		// Remove comments from command string
+		if commentIndex := strings.Index(cmdString, "#"); commentIndex != -1 {
+			cmdString = strings.TrimSpace(cmdString[:commentIndex])
+		}
 
 		if cmdName == "" || cmdString == "" {
 			Logger(LoggerOptions{Level: "warn", Message: fmt.Sprintf("Empty command name or string: %s", line)})
