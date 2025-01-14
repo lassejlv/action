@@ -9,6 +9,6 @@ build_mac-x64 = GOOS=darwin GOARCH=amd64 go build -o build/actionfile-mac-x64
 build_mac-arm64 = GOOS=darwin GOARCH=arm64 go build -o build/actionfile-mac-arm64
 
 # Docs
-docs = bunx vitepress dev docs
-docs_build = bunx vitepress build docs
-docs_preview = bunx vitepress preview docs
+#docs_serve = bunx vitepress dev docs
+#docs_build = bunx vitepress build docs
+#docs_preview = bunx vitepress preview docs
