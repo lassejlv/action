@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/exec"
 
 	"github.com/Masterminds/semver"
 	"github.com/rs/zerolog/log"
@@ -17,10 +18,10 @@ func Upgrade() {
 		os.Exit(1)
 	}
 
-	isInstalledWithGoGet := os.Getenv("GOBIN") != ""
+	isInstalledWithGoGet := exec.Command("go", "list", "-m", "-f", "{{.Path}}").Run() == nil
 
 	if !isInstalledWithGoGet {
-		log.Error().Msg("This command is only available for go get installations for now.")
+		log.Printf("This command is only available for go get installations for now.")
 		os.Exit(1)
 	}
 

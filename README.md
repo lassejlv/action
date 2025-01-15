@@ -22,6 +22,4 @@ Then run `action --help` and to upgrade in the feature. Use `action --upgrade` ð
 
 #### The other way
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/lassejlv/action/refs/heads/main/scripts/install.sh | bash
-```
+Download a binary for your OS from the [releases](github.com/lassejlv/action/releases) page.
