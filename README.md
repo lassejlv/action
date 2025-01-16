@@ -1,6 +1,6 @@
 # Actionfile
 
-This is a fast and idiot proof command runner. Easy and freindly config language.
+This is a fast and idiot proof command runner. Easy and freindly config language. Don't judge my code. I'm new to go and learning. It's getting better i promise. But for now i really like the result.
 
 Example. Create a `.actions` file
 
