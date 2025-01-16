@@ -17,10 +17,9 @@ func Upgrade() {
 		os.Exit(1)
 	}
 
-	// Get the latest github release and match it to the current version
-
 	log.Info().Msg("Checking for updates...")
 
+	// Get the latest github release and match it to the current version
 	url := "https://api.github.com/repos/lassejlv/actionfile-go/releases/latest"
 	resp, err := http.Get(url)
 
@@ -39,8 +38,8 @@ func Upgrade() {
 		panic(err)
 	}
 
-	log.Info().Msgf("Latest version: %s", release.TagName)
-	log.Info().Msgf("Current version: %s", CurrentVersion)
+	log.Info().Msgf("Found latest version: %s", release.TagName)
+	log.Info().Msgf("Your version: %s", CurrentVersion)
 
 	v, err := semver.NewVersion(release.TagName)
 
@@ -60,7 +59,7 @@ func Upgrade() {
 		log.Info().Msg("Upgrade complete")
 		log.Info().Msg(fmt.Sprintf("Read more about this release at https://github.com/lassejlv/action/releases/tag/%s", release.TagName))
 	} else {
-		log.Info().Msg("You are already on the latest version")
+		log.Info().Msg("You are already on the latest version, no need to upgrade boss 🎉")
 	}
 
 }

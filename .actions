@@ -1,12 +1,16 @@
-# Testing commands
-hello_world =  echo "Hello World"
+# # Loads env from .env.local
+# @env = .env.local
+
+# # Testing commands
+# hello_world =  echo "Hello World"
+# hello_mom = echo "Hello Mom, i love you!" {{ depends_on = "hello_world" }}
 
 # Build commands, will be used with github actions
-build_win-x64 = GOOS=windows GOARCH=amd64 go build -o build/actionfile-win-x64.exe ## A comment here
-build_linux-x64 = GOOS=linux GOARCH=amd64 go build -o build/actionfile-linux-x64
-build_linux-arm64 = GOOS=linux GOARCH=arm64 go build -o build/actionfile-linux-arm64
-build_mac-x64 = GOOS=darwin GOARCH=amd64 go build -o build/actionfile-mac-x64
-build_mac-arm64 = GOOS=darwin GOARCH=arm64 go build -o build/actionfile-mac-arm64
+build_win-x64 = GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o build/actionfile-win-x64.exe ## A comment here
+build_linux-x64 = GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o build/actionfile-linux-x64
+build_linux-arm64 = GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o build/actionfile-linux-arm64
+build_mac-x64 = GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o build/actionfile-mac-x64
+build_mac-arm64 = GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o build/actionfile-mac-arm64
 
 # Docs
 #docs_serve = bunx vitepress dev docs
