@@ -1,5 +1,5 @@
 # Testing commands
-hello_world = echo "Hello World"
+hello_world =  echo "Hello World"
 
 # Build commands, will be used with github actions
 build_win-x64 = GOOS=windows GOARCH=amd64 go build -o build/actionfile-win-x64.exe ## A comment here

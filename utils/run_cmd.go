@@ -8,7 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func RunCmd(cmdString string) {
+func RunCmd(cmdString string, showOutput bool) {
 	var cmd *exec.Cmd
 
 	if runtime.GOOS == "windows" {
@@ -17,13 +17,15 @@ func RunCmd(cmdString string) {
 		cmd = exec.Command("sh", "-c", cmdString)
 	}
 
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	if showOutput {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
 
 	err := cmd.Run()
 
 	if err != nil {
-		log.Error().Err(err).Msg("Could not run the command, sadly.")
+		log.Error().Msgf("Error running command: %s", err)
 		os.Exit(1)
 	}
 }

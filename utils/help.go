@@ -7,23 +7,23 @@ import (
 )
 
 var headerColor = color.New(color.FgCyan, color.Bold)
+var versionColor = color.New(color.FgGreen, color.Bold)
 
 const usageTemplate = `
 Usage:
-  action <command>    Execute a specific command from .actions
+  action <command>   Execute a specific command from .actions
   action --all       Run all available commands from .actions
   action --list      List all available commands from .actions
   action --version   Print the current version
   action --upgrade   Upgrade to the latest version
+  action --help      Show this help message
 
-Examples:
-  action build       Run the build command - Loads the build command from .actions
-  action test        Run the test command - Loads the test command from .actions
-
-For more information, visit: https://github.com/lassejlv/actionfile
+For more information, visit: https://github.com/lassejlv/action
 `
 
-func Usage() {
+func Help() {
 	headerColor.Println("\nActionfile Command Runner")
+	versionColor.Printf("Version: %s\n", CurrentVersion)
+
 	fmt.Print(usageTemplate)
 }

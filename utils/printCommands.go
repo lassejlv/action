@@ -30,6 +30,4 @@ func PrintAvailableCommands(cmdToRun string) {
 
 		fmt.Println(strings.Repeat("-", 40))
 	}
-
-	log.Info().Msg("string means the command to be ran by the command runner)")
 }

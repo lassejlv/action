@@ -8,7 +8,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "0.1.28"
+var CurrentVersion string = "1.0.0"
 
 type CommandsArray struct {
 	Name   string
@@ -24,7 +24,7 @@ func ParseCommands() []CommandsArray {
 			if err != nil {
 				panic(err)
 			}
-			log.Warn().Msgf("No %s file found in %s", ConfigFileName, cwd)
+			log.Error().Msgf("No %s file found in %s", ConfigFileName, cwd)
 			os.Exit(1)
 		}
 		panic(err)
@@ -45,11 +45,21 @@ func ParseCommands() []CommandsArray {
 			continue
 		}
 
+		var lineNumber int
+
+		// get the line number
+		for i, v := range strings.Split(string(data), "\n") {
+			if v == line {
+				lineNumber = i
+			}
+		}
+
 		// Split by = first
 		parts := strings.SplitN(line, "=", 2)
 
 		if len(parts) != 2 {
-			log.Warn().Msgf("Invalid line format: %s", line)
+			log.Error().Msgf("Invalid line format: %s at line %d", line, lineNumber)
+			os.Exit(1)
 			continue
 		}
 
@@ -62,7 +72,8 @@ func ParseCommands() []CommandsArray {
 		}
 
 		if cmdName == "" || cmdString == "" {
-			log.Warn().Msgf("Empty command name or string: %s", line)
+			log.Error().Msgf("Empty command name or string: %s at line %d", line, lineNumber)
+			os.Exit(1)
 			continue
 		}
 
@@ -70,7 +81,8 @@ func ParseCommands() []CommandsArray {
 	}
 
 	if len(commands) == 0 {
-		log.Warn().Msg("No valid commands found in config file")
+		log.Error().Msg("No valid commands found in config file")
+		os.Exit(1)
 	}
 
 	return commands

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/lassejlv/action/utils"
@@ -15,8 +16,8 @@ func main() {
 	commands := utils.ParseCommands()
 
 	// Run the first command if no command is specified
-	if len(os.Args) < 2 {
-		utils.RunCmd(commands[0].String)
+	if len(os.Args) < 2 && len(commands) > 0 {
+		utils.RunCmd(commands[0].String, true)
 		return
 	}
 
@@ -28,7 +29,7 @@ func main() {
 	}
 
 	if cmdToRun == "--version" {
-		log.Info().Msgf("v%s", utils.CurrentVersion)
+		fmt.Println(utils.CurrentVersion)
 		return
 	}
 
@@ -43,23 +44,18 @@ func main() {
 	}
 
 	if cmdToRun == "--help" {
-		utils.Usage()
+		utils.Help()
 		return
 	}
 
-	// Runs all the commands
 	if cmdToRun == "--all" {
-
-		for _, command := range commands {
-			utils.RunCmd(command.String)
-		}
-
+		utils.RunAll()
 		return
 	}
 
 	for _, command := range commands {
 		if command.Name == cmdToRun {
-			utils.RunCmd(command.String)
+			utils.RunCmd(command.String, true)
 			return
 		}
 	}
