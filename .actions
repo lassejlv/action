@@ -4,6 +4,7 @@
 # Testing commands
 hello_world =  echo "Hello World"
 hello_mom = echo "Hello Mom, i love you!" {{ depends_on = "hello_world" }}
+message = echo 'This is a message from env: {MESSAGE}' ## Will be parsed and set when you add the @env
 
 # Build commands, will be used with github actions
 build_win-x64 = GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o build/actionfile-win-x64.exe ## A comment here

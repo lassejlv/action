@@ -24,8 +24,7 @@ func ParseCommands() []CommandsArray {
 			if err != nil {
 				panic(err)
 			}
-			log.Error().Msgf("No %s file found in %s", ConfigFileName, cwd)
-			os.Exit(1)
+			log.Warn().Msgf("No %s file found in %s", ConfigFileName, cwd)
 		}
 		panic(err)
 	}
@@ -99,7 +98,22 @@ func ParseCommands() []CommandsArray {
 			continue
 		}
 
-		commands = append(commands, CommandsArray{Name: cmdName, String: cmdString})
+		var finalCommand string
+
+		isContainingEnv := strings.Contains(cmdString, "{") || strings.Contains(cmdString, "}")
+
+		if isContainingEnv {
+			// get the env betweeen {} and replace that
+			envName := strings.Split(cmdString, "{")[1]
+			envName = strings.Split(envName, "}")[0]
+			envName = strings.TrimSpace(envName)
+			envValue := os.Getenv(envName)
+			finalCommand = strings.Replace(cmdString, "{"+envName+"}", envValue, 1)
+		} else {
+			finalCommand = cmdString
+		}
+
+		commands = append(commands, CommandsArray{Name: cmdName, String: finalCommand})
 	}
 
 	if len(commands) == 0 {
