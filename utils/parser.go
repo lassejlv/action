@@ -8,7 +8,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "1.0.1"
+var CurrentVersion string = "1.0.2"
 
 type CommandsArray struct {
 	Name   string
@@ -52,6 +52,28 @@ func ParseCommands() []CommandsArray {
 			if v == line {
 				lineNumber = i
 			}
+		}
+
+		isEnv := strings.HasPrefix(line, "@env")
+
+		if isEnv {
+			// Remove the = and just get the path
+			parts := strings.SplitN(line, "=", 2)
+			if len(parts) != 2 {
+				log.Error().Msgf("Invalid env format: %s at line %d", line, lineNumber)
+				os.Exit(1)
+			}
+			envPath := strings.TrimSpace(parts[1])
+			log.Info().Msgf("Found env path: %s", envPath)
+
+			// Parse the env file
+			content, err := os.ReadFile(envPath)
+			if err != nil {
+				log.Error().Msgf("Error reading env file: %s at line %d", line, lineNumber)
+				os.Exit(1)
+			}
+			EnvParser(string(content))
+			continue
 		}
 
 		// Split by = first
