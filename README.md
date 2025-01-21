@@ -23,3 +23,23 @@ Then run `action --help` and to upgrade in the feature. Use `action --upgrade` ð
 #### The other way
 
 Download a binary for your OS from the [releases](github.com/lassejlv/action/releases) page.
+
+## Using BETA install script
+
+### Linux and MacOS (may work for windows too. It should. It worked on my machine)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lassejlv/action/main/scripts/install.sh | bash
+```
+
+To uninstall run
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lassejlv/action/main/scripts/uninstall.sh | bash
+```
+
+To upgrade run
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lassejlv/action/main/scripts/upgrade.sh | bash # or action --upgrade
+```
