@@ -18,7 +18,7 @@ Usage:
   action --upgrade   Upgrade to the latest version
   action --help      Show this help message
 
-For more information, visit: https://github.com/lassejlv/action
+  For more information, visit: https://github.com/lassejlv/action
 `
 
 func Help() {

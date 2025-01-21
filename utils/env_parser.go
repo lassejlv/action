@@ -3,8 +3,6 @@ package utils
 import (
 	"os"
 	"strings"
-
-	"github.com/rs/zerolog/log"
 )
 
 // A function that will parse the environment variables from the content and set them
@@ -24,5 +22,4 @@ func EnvParser(fileData string) {
 		os.Setenv(parts[0], parts[1])
 	}
 
-	log.Info().Msg("Environment variables parsed and set")
 }

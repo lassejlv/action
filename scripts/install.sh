@@ -49,6 +49,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Check if /usr/local/bin exists, create it if it doesn't
+if [ ! -d "/usr/local/bin" ]; then
+    printf "Creating /usr/local/bin directory...\n"
+    sudo mkdir -p /usr/local/bin
+fi
+
 # Move to /usr/local/bin with sudo
 printf "Installing to /usr/local/bin (requires sudo)...\n"
 sudo mv "$tmpdir/action" /usr/local/bin/

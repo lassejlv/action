@@ -8,11 +8,50 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "1.0.2"
+var CurrentVersion string = "1.0.3"
 
 type CommandsArray struct {
 	Name   string
 	String string
+}
+
+// Example
+// hello_world =  echo "Hello World"
+// hello_mom = echo "Hello Mom, i love you!" {{ depends_on = "hello_world" }}
+type CommandOptions struct {
+	DependsOn string `json:"depends_on"`
+}
+
+func HasConfig(line string) (CommandOptions, error) {
+	endsWith := strings.HasSuffix(line, "}")
+
+	if !endsWith {
+		return CommandOptions{}, nil
+	}
+
+	// Look for depends_on in the line
+	if strings.Contains(line, "depends_on") {
+		// Find the value between quotes after depends_on =
+		startIndex := strings.Index(line, "depends_on") + len("depends_on")
+		// Find the next quote after equals sign
+		startIndex = strings.Index(line[startIndex:], "\"") + startIndex + 1
+		if startIndex == -1 {
+			return CommandOptions{}, nil
+		}
+
+		// Find the closing quote
+		endIndex := strings.Index(line[startIndex:], "\"") + startIndex
+		if endIndex == -1 {
+			return CommandOptions{}, nil
+		}
+
+		dependsOn := line[startIndex:endIndex]
+		return CommandOptions{
+			DependsOn: dependsOn,
+		}, nil
+	}
+
+	return CommandOptions{}, nil
 }
 
 func ParseCommands() []CommandsArray {
@@ -49,7 +88,7 @@ func ParseCommands() []CommandsArray {
 		// get the line number
 		for i, v := range strings.Split(string(data), "\n") {
 			if v == line {
-				lineNumber = i
+				lineNumber = i + 1
 			}
 		}
 
@@ -63,7 +102,6 @@ func ParseCommands() []CommandsArray {
 				os.Exit(1)
 			}
 			envPath := strings.TrimSpace(parts[1])
-			log.Info().Msgf("Found env path: %s", envPath)
 
 			// Parse the env file
 			content, err := os.ReadFile(envPath)

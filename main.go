@@ -55,6 +55,15 @@ func main() {
 
 	for _, command := range commands {
 		if command.Name == cmdToRun {
+			config, err := utils.HasConfig(command.String)
+
+			if err != nil {
+				log.Error().Msgf("Error parsing config: %s", err)
+				return
+			} else {
+				fmt.Print(config)
+			}
+
 			utils.RunCmd(command.String, true)
 			return
 		}

@@ -2,14 +2,14 @@ package utils
 
 import (
 	"fmt"
-	"strings"
+	"os"
+	"text/tabwriter"
 
 	"github.com/fatih/color"
 	"github.com/rs/zerolog/log"
 )
 
 func PrintAvailableCommands(cmdToRun string) {
-
 	commands := ParseCommands()
 
 	if len(commands) == 0 {
@@ -17,17 +17,19 @@ func PrintAvailableCommands(cmdToRun string) {
 		return
 	}
 
-	headerColor := color.New(color.FgBlue, color.Bold)
-	headerColor.Println("Available Commands:")
+	// Create header
+	fmt.Println("Available Commands:")
 
-	fmt.Println(strings.Repeat("=", 40))
+	// Create tabwriter for aligned output
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 
+	// Print each command with description
 	for _, command := range commands {
-		cmdNameColor := color.New(color.FgCyan, color.Bold)
-		cmdNameColor.Printf("Command: %s\n", command.Name)
-
-		fmt.Printf("String: %s\n", command.String)
-
-		fmt.Println(strings.Repeat("-", 40))
+		cmdColor := color.New(color.FgCyan, color.Bold)
+		fmt.Fprintf(w, "  %s\t%s\n",
+			cmdColor.Sprint(command.Name),
+			command.String,
+		)
 	}
+	w.Flush()
 }
