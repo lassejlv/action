@@ -1,0 +1,7 @@
+{
+	"scripts": {
+		"start": "npm run build && node dist/main.js",
+		"build": "tsc",
+		"test": "jest"
+	}
+}

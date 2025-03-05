@@ -11,11 +11,24 @@ import (
 
 func PrintAvailableCommands(cmdToRun string) {
 	commands := ParseCommands()
+	npm_scripts := ParsePackageJson()
 
-	if len(commands) == 0 {
-		log.Warn().Msg("No commands was found in config")
+	if len(commands) == 0 && len(npm_scripts) == 0 {
+		log.Warn().Msg("No commands found in config or package.json")
 		return
 	}
+
+	// Convert npm_scripts to CommandsArray type
+	scriptCommands := make([]CommandsArray, len(npm_scripts))
+	for i, script := range npm_scripts {
+		scriptCommands[i] = CommandsArray{
+			Name:   script.Name,
+			String: script.String,
+		}
+	}
+
+	// Combine both slices
+	all_commands := append(commands, scriptCommands...)
 
 	// Create header
 	fmt.Println("Available Commands:")
@@ -24,7 +37,7 @@ func PrintAvailableCommands(cmdToRun string) {
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 
 	// Print each command with description
-	for _, command := range commands {
+	for _, command := range all_commands {
 		cmdColor := color.New(color.FgCyan, color.Bold)
 		fmt.Fprintf(w, "  %s\t%s\n",
 			cmdColor.Sprint(command.Name),

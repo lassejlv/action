@@ -14,6 +14,7 @@ func main() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout})
 
 	commands := utils.ParseCommands()
+	npm_scripts := utils.ParsePackageJson()
 
 	// Run the first command if no command is specified
 	if len(os.Args) < 2 && len(commands) > 0 {
@@ -65,6 +66,13 @@ func main() {
 			}
 
 			utils.RunCmd(command.String, true)
+			return
+		}
+	}
+
+	for _, script := range npm_scripts {
+		if script.Name == cmdToRun {
+			utils.RunCmd(script.String, true)
 			return
 		}
 	}
