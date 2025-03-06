@@ -24,32 +24,32 @@ func main() {
 
 	cmdToRun := os.Args[1]
 
-	if cmdToRun == "--list" {
+	if cmdToRun == "--list" || cmdToRun == "ls" {
 		utils.PrintAvailableCommands(cmdToRun)
 		return
 	}
 
-	if cmdToRun == "--version" {
+	if cmdToRun == "--version" || cmdToRun == "-v" || cmdToRun == "version" {
 		fmt.Println(utils.CurrentVersion)
 		return
 	}
 
-	if cmdToRun == "--upgrade" {
+	if cmdToRun == "--upgrade" || cmdToRun == "upgrade" || cmdToRun == "update" {
 		utils.Upgrade()
 		return
 	}
 
-	if cmdToRun == "--init" {
+	if cmdToRun == "--init " || cmdToRun == "init" {
 		log.Info().Msg("Not implemented yet")
 		return
 	}
 
-	if cmdToRun == "--help" {
+	if cmdToRun == "--help" || cmdToRun == "help" {
 		utils.Help()
 		return
 	}
 
-	if cmdToRun == "--all" {
+	if cmdToRun == "--all" || cmdToRun == "all" {
 		utils.RunAll()
 		return
 	}

@@ -61,5 +61,4 @@ func Upgrade() {
 	} else {
 		log.Info().Msg("You are already on the latest version, no need to upgrade boss 🎉")
 	}
-
 }
