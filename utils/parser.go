@@ -8,7 +8,7 @@ import (
 )
 
 var ConfigFileName string = ".actions"
-var CurrentVersion string = "1.0.6"
+var CurrentVersion string = "1.0.7"
 
 type CommandsArray struct {
 	Name   string
@@ -65,7 +65,7 @@ func ParseCommands() []CommandsArray {
 			}
 			log.Warn().Msgf("No %s file found in %s", ConfigFileName, cwd)
 		}
-		panic(err)
+		return []CommandsArray{}
 	}
 
 	// Read file
